@@ -41,7 +41,7 @@ module.exports.fetchProductById = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
-    await res.send({ product });
+    await res.send(product);
   } catch (error) {
     res.send({ error });
   }

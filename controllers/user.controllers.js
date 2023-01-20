@@ -6,18 +6,18 @@ const sendEmail = require('../utils/emailer')
 // sign up user and send user to client
 module.exports.signUpUser = async (req, res) => {
   try {
-    const { username, password } = req.body.user;
+    const { username, password } = req.body;
     const user = new User({
       username,
-      "phone number": req.body.user["phone number"],
+      "phone number": req.body["phone number"],
     });
     const registeredUser = await User.register(user, password);
-    sendEmail(username, 'successfully registered', `You've been successfully registered with us. Thank you mr.phonex.com`)
+    sendEmail(username, 'successfully registered', `You've been successfully registered with us. Thank you rebuy`)
     req.login(registeredUser, (error) => {
       console.log({error})
       error && res.send({ error });
     });
-    res.send({ user: req.user });
+    res.send(req.user);
   } catch (error) {
     res.send({ error });
   }

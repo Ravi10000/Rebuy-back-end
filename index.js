@@ -55,10 +55,14 @@ const sessionConfig = {
   saveUninitialized: true,
 };
 
+const corsConfig = {
+  origin: "*"
+}
+
 // middlewares
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(corsConfig));
 app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -72,12 +76,16 @@ app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 
 // serve react files only in production mode
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client", "build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "client", "build")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
+//   });
+// }
+
+app.get('/', (req, res)=> {
+  res.send('hello World!')
+})
 
 app.listen(PORT, () => {
   console.log(`listening for requests on PORT ${PORT}`);
