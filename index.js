@@ -46,26 +46,29 @@ const store = new MongoDBStore({
 });
 
 const sessionConfig = {
+  store,
   secret: "This is a secret",
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+    // secure: true
   },
-  store: store,
   resave: true,
   saveUninitialized: true,
 };
 
 const corsConfig = {
-  origin: "*"
-}
+  origin: "*",
+};
 
 // middlewares
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors(corsConfig));
+app.use(cors());
 app.use(session(sessionConfig));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -83,9 +86,9 @@ app.use("/api/orders", orderRoutes);
 //   });
 // }
 
-app.get('/', (req, res)=> {
-  res.send('hello World!')
-})
+app.get("/", (req, res) => {
+  res.send("hello World!");
+});
 
 app.listen(PORT, () => {
   console.log(`listening for requests on PORT ${PORT}`);
