@@ -2,7 +2,10 @@ const mongoose = require("mongoose"); // Erase if already required
 const passportLocalMongoose = require("passport-local-mongoose");
 
 var userSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+  },
   "phone number": {
     type: String,
     required: true,
@@ -11,6 +14,10 @@ var userSchema = new mongoose.Schema({
   orders: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "Order",
+  },
+  cart: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Product",
   },
   address: String,
 });

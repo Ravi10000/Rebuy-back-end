@@ -2,13 +2,15 @@
 const User = require("../models/user.model");
 const Order = require("../models/order.model");
 const sendEmail = require("../utils/emailer");
+const Product = require("../models/product.model");
 
 // sign up user and send user to client
 module.exports.signUpUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
     console.log({ email, password });
     const user = new User({
+      name,
       username: email,
       "phone number": req.body["phone number"],
     });
@@ -89,6 +91,43 @@ module.exports.updateUserProfile = async (req, res) => {
     );
     await user.save();
     res.send({ user });
+  } catch (error) {
+    res.send({ error });
+  }
+};
+
+module.exports.addProductToCart = async (req, res) => {
+  try {
+    const { productId } = req.body;
+    const user = req.user;
+    if (user.cart.includes(productId)) {
+      return res.send(null);
+    }
+    user.cart.push(productId);
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    console.log(error);
+    res.send({ error });
+  }
+};
+
+module.exports.populateCart = async (req, res) => {
+  try {
+    const user = req.user;
+    await user.populate("cart");
+    res.send(user);
+  } catch (error) {
+    res.send({ error });
+  }
+};
+
+module.exports.removeProductFromCart = async (req, res) => {
+  try {
+    const { productId } = req.body;
+    const user = req.user;
+    user.cart = user.cart.filter((cartItemId) => cartItemId !== productId);
+    res.send(user);
   } catch (error) {
     res.send({ error });
   }

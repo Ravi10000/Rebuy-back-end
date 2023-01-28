@@ -10,6 +10,9 @@ const {
   getUser,
   generateOrder,
   updateUserProfile,
+  addProductToCart,
+  removeProductFromCart,
+  populateCart,
 } = require("../controllers/user.controllers");
 
 const router = express.Router();
@@ -24,7 +27,10 @@ router.post(
   }),
   signInUser
 );
-router.post("/signout", signOutUser);
+router.put("/cart", addProductToCart);
+router.delete("/cart", removeProductFromCart);
+router.get("/cart", populateCart);
+router.put("/signout", signOutUser);
 router.put("/generate-order", generateOrder);
 router.put("/", updateUserProfile);
 router.get("/", getUser);
