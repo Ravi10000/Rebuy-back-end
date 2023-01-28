@@ -8,7 +8,6 @@ const Product = require("../models/product.model");
 module.exports.signUpUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    console.log({ email, password });
     const user = new User({
       name,
       username: email,
@@ -116,7 +115,7 @@ module.exports.populateCart = async (req, res) => {
   try {
     const user = req.user;
     await user.populate("cart");
-    res.send(user);
+    res.send(user.cart);
   } catch (error) {
     res.send({ error });
   }
