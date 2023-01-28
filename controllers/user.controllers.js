@@ -123,10 +123,14 @@ module.exports.populateCart = async (req, res) => {
 
 module.exports.removeProductFromCart = async (req, res) => {
   try {
-    const { productId } = req.body;
+    const { productId } = req.params;
     const user = req.user;
-    user.cart = user.cart.filter((cartItemId) => cartItemId !== productId);
-    res.send(user);
+    const newUser = await User.findByIdAndUpdate(
+      user._id,
+      { $pull: { cart: productId } },
+      { new: true }
+    );
+    res.send(newUser);
   } catch (error) {
     res.send({ error });
   }

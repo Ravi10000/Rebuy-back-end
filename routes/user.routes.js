@@ -28,7 +28,7 @@ router.post(
   signInUser
 );
 router.put("/cart", addProductToCart);
-router.delete("/cart", removeProductFromCart);
+router.delete("/cart/:productId", removeProductFromCart);
 router.get("/cart", populateCart);
 router.put("/signout", signOutUser);
 router.put("/generate-order", generateOrder);
