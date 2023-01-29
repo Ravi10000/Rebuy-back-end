@@ -1,16 +1,11 @@
 {
-  "name": "rebuy-api",
+  "name": "mrphonex-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "npm": "8.5.0",
-    "node": "16.14.2"
-  },
   "scripts": {
     "push": "git push -u origin master",
     "start": "node index.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "dev": "nodemon index.js"
   },
   "keywords": [],
