@@ -17,12 +17,12 @@ async function sendEmail(to, subject, text) {
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
-    error && console.log({ error });
-    info && console.log({ info });
+    // error && console.log({ error });
+    // info && console.log({ info });
   });
 }
 
-module.exports = sendEmail
+module.exports = sendEmail;
 // sendEmail(
 //   "ravisince2k@gmail.com",
 //   "test mail",

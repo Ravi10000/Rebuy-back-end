@@ -57,7 +57,7 @@ const sessionConfig = {
 };
 
 const corsConfig = {
-  origin: "*",
+  origin: "https://mrphonex.onrender.com",
 };
 
 // middlewares
