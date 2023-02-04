@@ -56,7 +56,7 @@ module.exports.signOutUser = (req, res) => {
 // fetch user from req.body and send it to client
 module.exports.getUser = (req, res) => {
   try {
-    console.log({ authenticated: req.isAuthenticated });
+    console.log({ authenticated: req.isAuthenticated() });
     if (req.isAuthenticated()) {
       return res.send(req.user);
     } else return res.send(null);
