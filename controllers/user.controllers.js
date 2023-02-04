@@ -9,8 +9,8 @@ module.exports.signUpUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = new User({
-      name,
-      username: email,
+      name: name.toLowerCase(),
+      username: email.toLowerCase(),
       "phone number": req.body["phone number"],
     });
     const registeredUser = await User.register(user, password);
@@ -56,6 +56,7 @@ module.exports.signOutUser = (req, res) => {
 // fetch user from req.body and send it to client
 module.exports.getUser = (req, res) => {
   try {
+    console.log({ authenticated: req.isAuthenticated });
     if (req.isAuthenticated()) {
       return res.send(req.user);
     } else return res.send(null);

@@ -9,7 +9,7 @@ const {
 
 const router = express.Router();
 
-router.get('/query', searchAndSend)
+router.get('/search', searchAndSend)
 router.get("/:id", fetchProductById);
 router.get("/", index);
 

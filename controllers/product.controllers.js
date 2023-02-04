@@ -22,7 +22,7 @@ module.exports.index = async (req, res) => {
 };
 module.exports.searchAndSend = async (req, res) => {
   try {
-    const { search, filter } = req.query;
+    const { search, filter } = req.body;
     // console.log({ query });
     const products = await Product.find({[filter]: search})
     console.log({products})
